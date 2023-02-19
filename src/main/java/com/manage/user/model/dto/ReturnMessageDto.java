@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReturnMessageDto {
 
-    private int httpstatus;
+    private int code;
+
+    private String status;
 
     private String message;
 }

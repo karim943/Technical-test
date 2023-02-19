@@ -29,9 +29,8 @@ public class Log {
     /**
      * Pointcuts before and after packages
      */
-    @Pointcut("within(com.users.test..*)" +
-            " || within(com.users.test.service..*)" +
-            " || within(com.users.test.controller..*)")
+    @Pointcut("within(com.manage.user..*)" +
+            " || within(com.manage.user.service..*)" )
     public void applicationPackagePointcut() {
     }
 

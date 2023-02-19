@@ -11,5 +11,5 @@ public interface IUserService {
     UserDTO createUser(@NotNull UserDTO userDto) throws UserAlreadyExistException;
 
 
-    UserDTO getUserById(String id) throws UserNotFoundException;
+    UserDTO getUserById(Long id) throws UserNotFoundException;
 }

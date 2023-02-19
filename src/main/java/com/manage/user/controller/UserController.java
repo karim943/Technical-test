@@ -34,7 +34,7 @@ public class UserController {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
     @LogOnTimeExecution
-    public UserDTO getUserById(@PathVariable String id) throws UserNotFoundException {
+    public UserDTO getUserById(@PathVariable Long id) throws UserNotFoundException {
         return userService.getUserById(id);
 
     }

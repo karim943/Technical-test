@@ -21,9 +21,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
     @Override
     public UserDTO createUser(UserDTO userDto) throws UserAlreadyExistException {
         if (userRepository.existsByUsername(userDto.getUsername())) {
@@ -40,7 +40,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO getUserById(String id) throws UserNotFoundException {
+    public UserDTO getUserById(Long id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("User Not Found!"));
         return userMapper.userToUserDto(user);
     }

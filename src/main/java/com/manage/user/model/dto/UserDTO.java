@@ -1,5 +1,6 @@
 package com.manage.user.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.manage.user.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,10 +13,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
-    @NotNull
-    private String id;
+    private Long id;
 
     @NotNull
     private String username;
@@ -23,7 +24,6 @@ public class UserDTO {
     @NotNull
     private LocalDate birthDate;
 
-    @NotNull
     private String country;
 
     private String phoneNumber;

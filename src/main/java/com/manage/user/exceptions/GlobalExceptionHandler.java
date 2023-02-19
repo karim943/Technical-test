@@ -23,7 +23,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ReturnMessageDto> handleUserNotFoundException(UserNotFoundException ex) {
         ReturnMessageDto error = new ReturnMessageDto();
-        error.setHttpstatus(HttpStatus.NOT_FOUND.value());
+        error.setCode(HttpStatus.NOT_FOUND.value());
+        error.setStatus(HttpStatus.NOT_FOUND.toString());
         error.setMessage(ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -38,7 +39,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyExistException.class)
     public ResponseEntity<ReturnMessageDto> handleUserAlreadyExistException(UserAlreadyExistException ex) {
         ReturnMessageDto error = new ReturnMessageDto();
-        error.setHttpstatus(HttpStatus.CONFLICT.value());
+        error.setCode(HttpStatus.CONFLICT.value());
+        error.setStatus(HttpStatus.CONFLICT.toString());
         error.setMessage(ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
@@ -53,9 +55,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotFrenchResidentException.class)
     public ResponseEntity<ReturnMessageDto> handleUserNotFrenchResidentException(UserNotFrenchResidentException ex) {
         ReturnMessageDto error = new ReturnMessageDto();
-        error.setHttpstatus(HttpStatus.FORBIDDEN.value());
+        error.setCode(HttpStatus.BAD_REQUEST.value());
+        error.setStatus(HttpStatus.BAD_REQUEST.toString());
         error.setMessage(ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -69,9 +72,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserNotAdultException.class)
     public ResponseEntity<ReturnMessageDto> UserNotAdultException(UserNotAdultException ex) {
         ReturnMessageDto error = new ReturnMessageDto();
-        error.setHttpstatus(HttpStatus.FORBIDDEN.value());
+        error.setCode(HttpStatus.BAD_REQUEST.value());
+        error.setStatus(HttpStatus.BAD_REQUEST.name());
         error.setMessage(ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     /**

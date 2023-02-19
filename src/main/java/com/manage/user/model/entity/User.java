@@ -1,6 +1,5 @@
 package com.manage.user.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.manage.user.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,11 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Table(name = "users")
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,15 +19,13 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotNull
     private String username;
 
-    @NotNull
     private LocalDate birthDate;
 
-    @NotNull
     private String country;
 
     private String phoneNumber;
