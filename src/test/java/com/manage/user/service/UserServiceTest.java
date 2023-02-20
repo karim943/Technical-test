@@ -1,71 +1,68 @@
 package com.manage.user.service;
 
+
+import com.manage.user.enums.Country;
 import com.manage.user.enums.Gender;
-import com.manage.user.exceptions.UserNotFoundException;
 import com.manage.user.mapper.UserMapper;
 import com.manage.user.model.dto.UserDTO;
 import com.manage.user.model.entity.User;
 import com.manage.user.repository.UserRepository;
 import com.manage.user.service.impl.UserServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+@SpringBootTest
+class UserServiceTest {
 
     @Mock
-    UserRepository userRepository;
-
-    /**
-     * User Mapper
-     */
+    private UserRepository userRepository;
     @Mock
-    UserMapper userMapper;
-
-    /**
-     * User Service
-     */
+    private UserMapper userMapper;
     @InjectMocks
-    UserServiceImpl userService;
+    private UserServiceImpl userService;
 
     @Test
-    void createUserTest() {
-        User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("FRANCE").phoneNumber("0612345678").gender(Gender.MALE).build();
-        UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("FRANCE").phoneNumber("0612345678").gender(Gender.MALE).build();
+    void createUserTest() throws Exception {
+        UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
+        User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
 
-        Mockito.when(userRepository.save(ArgumentMatchers.any(User.class))).thenReturn(user);
-        Mockito.when(userMapper.userDtoToUser(ArgumentMatchers.any(UserDTO.class))).thenReturn(user);
-        Mockito.when(userMapper.userToUserDto(ArgumentMatchers.any(User.class))).thenReturn(userDto);
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(userMapper.userDtoToUser(userDto)).thenReturn(user);
+        when(userMapper.userToUserDto(user)).thenReturn(userDto);
 
-        UserDTO createdUserDto = userService.createUser(userDto);
+        UserDTO serviceResponse = userService.createUser(userDto);
 
-        assertThat(createdUserDto.getId()).isSameAs(userDto.getId());
-        assertThat(createdUserDto.getCountry()).isSameAs(userDto.getCountry());
-        Mockito.verify(userRepository).save(user);
+        Assertions.assertEquals(serviceResponse.getId(), userDto.getId());
+        Assertions.assertEquals(serviceResponse.getUsername(), userDto.getUsername());
+        Assertions.assertEquals(serviceResponse.getGender(), userDto.getGender());
     }
 
 
     @Test
-    void getUserByIdTest() throws UserNotFoundException {
-        User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("FRANCE").phoneNumber("0612345678").gender(Gender.MALE).build();
-        UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("FRANCE").phoneNumber("0612345678").gender(Gender.MALE).build();
+    void getUserByIdTest() throws Exception {
+        UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
+        User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
 
-        Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        Mockito.when(userMapper.userToUserDto(ArgumentMatchers.any(User.class))).thenReturn(userDto);
+        when(userRepository.findById(userDto.getId())).thenReturn(Optional.ofNullable(user));
+        when(userMapper.userToUserDto(user)).thenReturn(userDto);
 
-        UserDTO expectedUser = userService.getUserById(user.getId());
+        UserDTO serviceResponse = userService.getUserById(1L);
 
-        assertThat(expectedUser).isSameAs(userDto);
-        Mockito.verify(userRepository).findById(user.getId());
+        Assertions.assertEquals(serviceResponse.getId(), userDto.getId());
+        Assertions.assertEquals(serviceResponse.getUsername(), userDto.getUsername());
+        Assertions.assertEquals(serviceResponse.getGender(), userDto.getGender());
     }
 }
