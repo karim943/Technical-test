@@ -35,15 +35,15 @@ mvn spring-boot:run
 
 In [POSTMAN](https://www.postman.com/) you click on Import button in the top left :
 
-![Collection Postman Image 1](https://github.com/karim943/Technical-test/blob/6b71469688533c08bee6b74304a8682e84961506/Collection.bmp)
+![Collection Postman Image 1](https://github.com/karim943/Technical-test/blob/6b71469688533c08bee6b74304a8682e84961506/HowToImportCollection.bmp)
 
 Click on Upload Files button, then select the User_Management.postman_collection.json file :
 
-![Collection Postman Image 2](https://github.com/karim943/Technical-test/blob/6b71469688533c08bee6b74304a8682e84961506/HowToImportCollection.bmp)
+![Collection Postman Image 2](https://github.com/karim943/Technical-test/blob/6b71469688533c08bee6b74304a8682e84961506/HowToImportCollection2.bmp)
 
 Now User Management collection is added in the left pannel with the API :
 
-![Collection Postman Image 3](https://github.com/karim943/Technical-test/blob/6b71469688533c08bee6b74304a8682e84961506/HowToImportCollection2.bmp)
+![Collection Postman Image 3](https://github.com/karim943/Technical-test/blob/6b71469688533c08bee6b74304a8682e84961506/Collection.bmp)
 
 ## Swagger Documentation
 
