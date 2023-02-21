@@ -1,8 +1,5 @@
 package com.manage.user.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.manage.user.enums.Country;
 import com.manage.user.enums.Gender;
 import com.manage.user.model.dto.UserDTO;
@@ -34,10 +31,8 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
     @Test
-    void createUserIntTest() throws Exception {
+    void createUserIntTest() {
         UserDTO userDTO = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
 
         when(userService.createUser(any(UserDTO.class))).thenReturn(userDTO);
@@ -49,7 +44,7 @@ class UserControllerTest {
     }
 
     @Test
-    void getUserByIdTest() throws Exception {
+    void getUserByIdTest() {
         UserDTO userDTO = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
 
         when(userService.getUserById(any(Long.class))).thenReturn(userDTO);

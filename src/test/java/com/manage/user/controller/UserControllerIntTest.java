@@ -45,7 +45,6 @@ class UserControllerIntTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/users/create").content(jsonRequest).contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.country", CoreMatchers.is(userDTO.getCountry())));
-
     }
 
     @Before

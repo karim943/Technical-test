@@ -14,15 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
 import java.time.LocalDate;
 import java.util.Optional;
 
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 
 @SpringBootTest
 class UserServiceTest {
@@ -35,7 +32,7 @@ class UserServiceTest {
     private UserServiceImpl userService;
 
     @Test
-    void createUserTest() throws Exception {
+    void createUserTest() {
         UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
         User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
 
@@ -52,7 +49,7 @@ class UserServiceTest {
 
 
     @Test
-    void getUserByIdTest() throws Exception {
+    void getUserByIdTest() {
         UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
         User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
 
