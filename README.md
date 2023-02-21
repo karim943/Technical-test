@@ -12,7 +12,7 @@ $ git clone https://github.com/karim943/Technical-test.git
 ## Requirements
 To build/run the application you need:
 
-* [JDK 8](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
+* [JDK 11](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html)
 * [Maven 3](https://maven.apache.org/index.html)
 
 ## To run the application locally
