@@ -1,7 +1,9 @@
 package com.manage.user.enums;
 
 import lombok.AllArgsConstructor;
-
+/**
+ * Country Enumeration
+ */
 @AllArgsConstructor
 public enum Country {
 

@@ -22,6 +22,11 @@ public class UserController {
 
     private final IUserService userService;
 
+    /**
+     * User creation API
+     * @param userDto
+     * @return UserDTO
+     */
     @PostMapping("/create")
     @ResponseBody
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -30,6 +35,11 @@ public class UserController {
         return userService.createUser(userDto);
     }
 
+    /**
+     * Get a user by its id
+     * @param id
+     * @return UserDTO
+     */
     @GetMapping("/{id}")
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)

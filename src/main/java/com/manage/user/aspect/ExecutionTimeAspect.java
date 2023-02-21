@@ -12,6 +12,12 @@ import org.springframework.util.StopWatch;
 @Slf4j
 public class ExecutionTimeAspect {
 
+    /**
+     * Log execution time for methods
+     * @param joinPoint
+     * @return Object
+     * @throws Throwable
+     */
     @Around("@annotation(com.manage.user.annotations.LogOnTimeExecution)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         final StopWatch stopWatch = new StopWatch();

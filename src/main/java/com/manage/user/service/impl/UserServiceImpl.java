@@ -24,6 +24,12 @@ public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
+
+    /**
+     * @param userDto
+     * @return UserDTO
+     * @throws UserAlreadyExistException
+     */
     @Override
     public UserDTO createUser(UserDTO userDto) throws UserAlreadyExistException {
         if (userRepository.existsByUsername(userDto.getUsername())) {
@@ -39,6 +45,11 @@ public class UserServiceImpl implements IUserService {
         return userMapper.userToUserDto(userRepository.save(user));
     }
 
+    /**
+     * @param id
+     * @return UserDTO
+     * @throws UserNotFoundException
+     */
     @Override
     public UserDTO getUserById(Long id) throws UserNotFoundException {
         User user = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("User Not Found!"));

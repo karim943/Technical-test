@@ -31,8 +31,13 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
+
+    /**
+     * Create User Unit Test
+     * @throws Exception
+     */
     @Test
-    void createUserIntTest() {
+    void createUserIntTest() throws Exception {
         UserDTO userDTO = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
 
         when(userService.createUser(any(UserDTO.class))).thenReturn(userDTO);
@@ -43,8 +48,12 @@ class UserControllerTest {
 
     }
 
+    /**
+     * Get User By Id Unit Test
+     * @throws Exception
+     */
     @Test
-    void getUserByIdTest() {
+    void getUserByIdTest() throws Exception {
         UserDTO userDTO = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
 
         when(userService.getUserById(any(Long.class))).thenReturn(userDTO);

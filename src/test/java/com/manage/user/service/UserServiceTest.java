@@ -3,6 +3,7 @@ package com.manage.user.service;
 
 import com.manage.user.enums.Country;
 import com.manage.user.enums.Gender;
+import com.manage.user.exceptions.UserNotFoundException;
 import com.manage.user.mapper.UserMapper;
 import com.manage.user.model.dto.UserDTO;
 import com.manage.user.model.entity.User;
@@ -31,8 +32,12 @@ class UserServiceTest {
     @InjectMocks
     private UserServiceImpl userService;
 
+    /**
+     * Create User Unit Test
+     * @throws Exception
+     */
     @Test
-    void createUserTest() {
+    void createUserTest() throws Exception{
         UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
         User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
 
@@ -47,9 +52,12 @@ class UserServiceTest {
         Assertions.assertEquals(serviceResponse.getGender(), userDto.getGender());
     }
 
-
+    /**
+     * Get User By Id Unit Test
+     * @throws UserNotFoundException
+     */
     @Test
-    void getUserByIdTest() {
+    void getUserByIdTest() throws UserNotFoundException{
         UserDTO userDto = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
         User user = User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country("France").phoneNumber("066698855").gender(Gender.MALE).build();
 

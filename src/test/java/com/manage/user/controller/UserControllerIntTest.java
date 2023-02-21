@@ -34,6 +34,10 @@ class UserControllerIntTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
 
+    /**
+     * Create User Integration Test
+     * @throws Exception
+     */
     @Test
     void createUserIntTest() throws Exception {
         UserDTO userDTO = UserDTO.builder().username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
@@ -47,11 +51,18 @@ class UserControllerIntTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.country", CoreMatchers.is(userDTO.getCountry())));
     }
 
+    /**
+     * this method run before the Test method
+     */
     @Before
     void init() {
         userRepository.save(User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build());
     }
 
+    /**
+     * Get User By Id Integration Test
+     * @throws Exception
+     */
     @Test
     void getUserByIdTest() throws Exception {
         UserDTO userDTO = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
