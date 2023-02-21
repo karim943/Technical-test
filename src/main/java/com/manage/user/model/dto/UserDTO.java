@@ -24,6 +24,7 @@ public class UserDTO {
     @NotNull
     private LocalDate birthDate;
 
+    @NotNull
     private String country;
 
     private String phoneNumber;

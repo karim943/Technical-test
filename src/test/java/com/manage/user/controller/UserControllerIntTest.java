@@ -9,7 +9,7 @@ import com.manage.user.model.dto.UserDTO;
 import com.manage.user.model.entity.User;
 import com.manage.user.repository.UserRepository;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerIntTest {
@@ -33,15 +34,9 @@ class UserControllerIntTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
 
-    @BeforeEach
-    void init(){
-        userRepository.save(User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build());
-    }
-
-
     @Test
     void createUserIntTest() throws Exception {
-        UserDTO userDTO = UserDTO.builder().id(2L).username("kaarim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
+        UserDTO userDTO = UserDTO.builder().username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
 
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -49,16 +44,20 @@ class UserControllerIntTest {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/users/create").content(jsonRequest).contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(userDTO.getId()),Long.class))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.country",CoreMatchers.is(userDTO.getCountry())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.country", CoreMatchers.is(userDTO.getCountry())));
 
+    }
+
+    @Before
+    void init() {
+        userRepository.save(User.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build());
     }
 
     @Test
     void getUserByIdTest() throws Exception {
         UserDTO userDTO = UserDTO.builder().id(1L).username("karim").birthDate(LocalDate.of(1992, 11, 19)).country(Country.FRANCE.name()).phoneNumber("066698855").gender(Gender.MALE).build();
-        mockMvc.perform(get("/api/users/"+userDTO.getId())
+        mockMvc.perform(get("/api/users/" + userDTO.getId())
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(userDTO.getId()),Long.class));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(userDTO.getId()), Long.class));
     }
 }
